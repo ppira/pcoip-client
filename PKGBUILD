@@ -7,7 +7,7 @@ _protobufver=10
 pkgdesc="Teradici PCOIP client for x86_64 (64bit) Linux"
 arch=('x86_64')
 license=('custom:Teradici')
-depends=('glew2.0')
+depends=('glew2.0' 'glfw-x11')
 makedepends=('fakeroot')
 #options=(!strip)
 source=("https://downloads.teradici.com/ubuntu/pool/non-free/p/pcoip-client/pcoip-client_${pkgver}-18.04_amd64.deb"
@@ -37,6 +37,7 @@ prepare() {
   bsdtar -C libboost-thread -xvf libboost-thread1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
   bsdtar -C libboost-chrono -xvf libboost-chrono1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
   bsdtar -C libboost-filesystem -xvf libboost-filesystem1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
+  bsdtar -C libboost-regex -xvf libboost-regex1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
   bsdtar -C libboost-serialization -xvf libboost-serialization1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
 }
 
@@ -58,6 +59,8 @@ package() {
    ./usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.65.1
   tar -C $pkgdir/ -xvf $srcdir/libboost-filesystem/data.tar.xz \
    ./usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1
+  tar -C $pkgdir/ -xvf $srcdir/libboost-regex/data.tar.xz \
+   ./usr/lib/x86_64-linux-gnu/libboost_regex.so.1.65.1
   tar -C $pkgdir/ -xvf $srcdir/libboost-serialization/data.tar.xz \
    ./usr/lib/x86_64-linux-gnu/libboost_serialization.so.1.65.1
 
