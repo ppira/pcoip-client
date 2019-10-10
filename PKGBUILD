@@ -30,7 +30,7 @@ sha256sums=('SKIP'
 prepare() {
   cd $srcdir
   mkdir -p pcoip-client libprotobuf libboost-system libboost-thread \
-   libboost-chrono libboost-filesystem libboost-serialization
+   libboost-chrono libboost-regex libboost-filesystem libboost-serialization
   bsdtar -C pcoip-client -xvf pcoip-client_${pkgver}-18.04_amd64.deb
   bsdtar -C libprotobuf -xvf libprotobuf10_3.0.0-9.1ubuntu1_amd64.deb
   bsdtar -C libboost-system -xvf libboost-system1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
