@@ -1,7 +1,7 @@
 # Maintainer: Patrik Pira
 pkgname=pcoip-client
 pkgver=19.08.2
-pkgrel=2
+pkgrel=3
 _boostver=1.65.1
 _protobufver=10
 pkgdesc="Teradici PCOIP client for x86_64 (64bit) Linux"
