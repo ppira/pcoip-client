@@ -1,13 +1,13 @@
 # Maintainer: Patrik Pira
 pkgname=pcoip-client
-pkgver=19.08.2
-pkgrel=4
+pkgver=19.11.0
+pkgrel=1
 _boostver=1.65.1
 _protobufver=10
 pkgdesc="Teradici PCOIP client for x86_64 (64bit) Linux"
 arch=('x86_64')
 license=('custom:Teradici')
-depends=('glew2.0' 'glfw' 'icu63')
+depends=('glew2.0' 'glfw')
 makedepends=('fakeroot')
 #options=(!strip)
 source=("https://downloads.teradici.com/ubuntu/pool/non-free/p/pcoip-client/pcoip-client_${pkgver}-18.04_amd64.deb"
