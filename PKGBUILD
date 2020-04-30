@@ -1,8 +1,10 @@
 # Maintainer: Patrik Pira
 pkgname=pcoip-client
-pkgver=19.11.0
+pkgver=20.04.0
 pkgrel=1
-_boostver=1.65.1
+boostmajorver=1.67
+boostver=1.67.0
+boostfilesufix="${boostver}_${boostver}-17ubuntu8_amd64.deb"
 _protobufver=10
 pkgdesc="Teradici PCOIP client for x86_64 (64bit) Linux"
 arch=('x86_64')
@@ -12,12 +14,12 @@ makedepends=('fakeroot')
 #options=(!strip)
 source=("https://downloads.teradici.com/ubuntu/pool/non-free/p/pcoip-client/pcoip-client_${pkgver}-18.04_amd64.deb"
  "http://se.archive.ubuntu.com/ubuntu/pool/main/p/protobuf/libprotobuf10_3.0.0-9.1ubuntu1_amd64.deb"
- "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost1.65.1/libboost-system1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb"
- "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost1.65.1/libboost-thread1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb"
- "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost1.65.1//libboost-chrono1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb"
- "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost1.65.1/libboost-filesystem1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb"
- "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost1.65.1/libboost-regex1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb"
- "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost1.65.1/libboost-serialization1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb")
+ "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${boostmajorver}/libboost-system${boostfilesufix}"
+ "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${boostmajorver}/libboost-thread${boostfilesufix}"
+ "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${boostmajorver}/libboost-chrono${boostfilesufix}"
+ "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${boostmajorver}/libboost-filesystem${boostfilesufix}"
+ "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${boostmajorver}/libboost-regex${boostfilesufix}"
+ "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${boostmajorver}/libboost-serialization${boostfilesufix}")
 sha256sums=('SKIP'
  'SKIP'
  'SKIP'
@@ -33,12 +35,12 @@ prepare() {
    libboost-chrono libboost-regex libboost-filesystem libboost-serialization
   bsdtar -C pcoip-client -xvf pcoip-client_${pkgver}-18.04_amd64.deb
   bsdtar -C libprotobuf -xvf libprotobuf10_3.0.0-9.1ubuntu1_amd64.deb
-  bsdtar -C libboost-system -xvf libboost-system1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
-  bsdtar -C libboost-thread -xvf libboost-thread1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
-  bsdtar -C libboost-chrono -xvf libboost-chrono1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
-  bsdtar -C libboost-filesystem -xvf libboost-filesystem1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
-  bsdtar -C libboost-regex -xvf libboost-regex1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
-  bsdtar -C libboost-serialization -xvf libboost-serialization1.65.1_1.65.1+dfsg-0ubuntu11_amd64.deb
+  bsdtar -C libboost-system -xvf libboost-system${boostfilesufix}
+  bsdtar -C libboost-thread -xvf libboost-thread${boostfilesufix}
+  bsdtar -C libboost-chrono -xvf libboost-chrono${boostfilesufix}
+  bsdtar -C libboost-filesystem -xvf libboost-filesystem${boostfilesufix}
+  bsdtar -C libboost-regex -xvf libboost-regex${boostfilesufix}
+  bsdtar -C libboost-serialization -xvf libboost-serialization${boostfilesufix}
 }
 
 package() {
@@ -52,17 +54,17 @@ package() {
   tar -C $pkgdir/ -xvf $srcdir/libprotobuf/data.tar.xz \
    ./usr/lib/x86_64-linux-gnu/libprotobuf.so.10.0.0
   tar -C $pkgdir/ -xvf $srcdir/libboost-system/data.tar.xz \
-   ./usr/lib/x86_64-linux-gnu/libboost_system.so.1.65.1
+   ./usr/lib/x86_64-linux-gnu/libboost_system.so.${boostver}
   tar -C $pkgdir/ -xvf $srcdir/libboost-thread/data.tar.xz \
-   ./usr/lib/x86_64-linux-gnu/libboost_thread.so.1.65.1
+   ./usr/lib/x86_64-linux-gnu/libboost_thread.so.${boostver}
   tar -C $pkgdir/ -xvf $srcdir/libboost-chrono/data.tar.xz \
-   ./usr/lib/x86_64-linux-gnu/libboost_chrono.so.1.65.1
+   ./usr/lib/x86_64-linux-gnu/libboost_chrono.so.${boostver}
   tar -C $pkgdir/ -xvf $srcdir/libboost-filesystem/data.tar.xz \
-   ./usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.65.1
+   ./usr/lib/x86_64-linux-gnu/libboost_filesystem.so.${boostver}
   tar -C $pkgdir/ -xvf $srcdir/libboost-regex/data.tar.xz \
-   ./usr/lib/x86_64-linux-gnu/libboost_regex.so.1.65.1
+   ./usr/lib/x86_64-linux-gnu/libboost_regex.so.${boostver}
   tar -C $pkgdir/ -xvf $srcdir/libboost-serialization/data.tar.xz \
-   ./usr/lib/x86_64-linux-gnu/libboost_serialization.so.1.65.1
+   ./usr/lib/x86_64-linux-gnu/libboost_serialization.so.${boostver}
 
 #  mv $pkgdir/usr/lib/x86_64-linux-gnu/lib*.so* \
 #   $pkgdir/opt/pcoip-client/lib/
