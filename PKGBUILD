@@ -1,7 +1,7 @@
 # Maintainer: Patrik Pira
 pkgname=pcoip-client
-pkgver=20.04.0
-pkgrel=2
+pkgver=20.07.1
+pkgrel=1
 boostmajorver=1.65.1
 boostver=1.65.1
 boostfilesuffix="${boostver}_${boostver}+dfsg-0ubuntu5_amd64.deb"
