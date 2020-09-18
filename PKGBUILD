@@ -1,6 +1,6 @@
 # Maintainer: Patrik Pira
 pkgname=pcoip-client
-pkgver=20.07.2
+pkgver=20.07.3
 pkgrel=1
 boostmajorver=1.65.1
 boostver=1.65.1
