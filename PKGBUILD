@@ -1,7 +1,7 @@
 # Maintainer: Patrik Pira
 pkgname=pcoip-client
 pkgver=20.07.3
-pkgrel=2
+pkgrel=3
 boostmajorver=1.65.1
 boostver=1.65.1
 boostfilesuffix="${boostver}_${boostver}+dfsg-0ubuntu5_amd64.deb"
@@ -9,7 +9,7 @@ _protobufver=10
 pkgdesc="Teradici PCOIP client for x86_64 (64bit) Linux"
 arch=('x86_64')
 license=('custom:Teradici')
-depends=('pcsclite' 'glew2.0' 'glfw' 'qt5-declarative')
+depends=('pcsclite' 'glew2.0' 'glfw' 'qt5-declarative' 'qt5-quickcontrols')
 makedepends=('fakeroot')
 #options=(!strip)
 source=("https://downloads.teradici.com/ubuntu/pool/non-free/p/pcoip-client/pcoip-client_${pkgver}-18.04_amd64.deb"
