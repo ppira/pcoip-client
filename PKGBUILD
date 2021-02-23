@@ -11,6 +11,7 @@ arch=('x86_64')
 license=('custom:Teradici')
 depends=('pcsclite' 'qt5-declarative' 'qt5-quickcontrols')
 makedepends=('fakeroot')
+install=$pkgname.install
 #options=(!strip)
 source=("https://downloads.teradici.com/ubuntu/pool/non-free/p/pcoip-client/pcoip-client_${pkgver}-18.04_amd64.deb"
  "http://se.archive.ubuntu.com/ubuntu/pool/main/p/protobuf/libprotobuf10_3.0.0-9.1ubuntu1_amd64.deb"
