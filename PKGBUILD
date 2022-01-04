@@ -2,7 +2,7 @@
 pkgname=pcoip-client
 pkgver=21.07.5
 _ubuntuver=20.04
-pkgrel=1
+pkgrel=2
 majorboostver=1.71
 boostver=1.71.0
 boostfilesuffix="${boostver}_${boostver}-6ubuntu11_amd64.deb"
@@ -10,7 +10,7 @@ _protobufver=17
 pkgdesc="Teradici PCOIP client for x86_64 (64bit) Linux"
 arch=('x86_64')
 license=('custom:Teradici')
-depends=('pcsclite' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-webengine' 'glfw' 'ffmpeg' 'libusb')
+depends=('pcsclite' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-webengine' 'glfw' 'ffmpeg')
 makedepends=('fakeroot' 'patchelf')
 install=$pkgname.install
 #options=(!strip)
@@ -99,7 +99,6 @@ package() {
   rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libFlxCo*
   rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libglfw*
   rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libswscale.so*
-  rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libusb*
   rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/wayland
   rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/x11
   rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/pkgconfig
