@@ -12,6 +12,7 @@ arch=('x86_64')
 license=('custom:Teradici')
 depends=('pcsclite' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-webengine' 'glfw' 'ffmpeg')
 makedepends=('fakeroot' 'patchelf')
+optdepends=('graphicsmagick: clipboard redirection support')
 install=$pkgname.install
 #options=(!strip)
 #source=("https://downloads.teradici.com/ubuntu/pool/non-free/p/pcoip-client/pcoip-client_${pkgver}-18.04_amd64.deb"
@@ -62,7 +63,6 @@ prepare() {
 package() {
   tar -C $pkgdir/ -xvf $srcdir/pcoip-client/data.tar.gz
 
-  rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
   rm -f $pkgdir/usr/sbin/pcoip-configure-kernel-networking
   rmdir $pkgdir/usr/sbin
 
@@ -103,7 +103,11 @@ package() {
   rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/x11
   rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/pkgconfig
 
-  chmod +x $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/lib*so*  
+  chmod +x $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/lib*so*
   patchelf --set-rpath /usr/lib/x86_64-linux-gnu/pcoip-client \
    $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/librdp-session.so
+
+  chmod +x $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
+  patchelf --replace-needed libGraphicsMagick++-Q16.so.12 libGraphicsMagick++.so.12 \
+   $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
 }
