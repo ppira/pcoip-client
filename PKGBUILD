@@ -1,6 +1,6 @@
 # Maintainer: Patrik Pira
 pkgname=pcoip-client
-pkgver=21.07.5
+pkgver=22.01.0
 _ubuntuver=20.04
 pkgrel=2
 majorboostver=1.71
