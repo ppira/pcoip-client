@@ -1,13 +1,13 @@
 # Maintainer: Patrik Pira
-pkgname=pcoip-client
+pkgname=('pcoip-client' 'pcoip-client-clipboard')
 pkgver=22.01.0
 _ubuntuver=20.04
-pkgrel=1
+pkgrel=2
 majorboostver=1.71
 boostver=1.71.0
 boostfilesuffix="${boostver}_${boostver}-6ubuntu11_amd64.deb"
 _protobufver=17
-pkgdesc="Teradici PCOIP client for x86_64 (64bit) Linux"
+pkgdesc="Teradici PCOIP client"
 arch=('x86_64')
 license=('custom:Teradici')
 depends=('pcsclite' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-webengine' 'glfw' 'ffmpeg')
@@ -59,7 +59,7 @@ prepare() {
   bsdtar -C libboost-container -xvf libboost-container${boostfilesuffix}
 }
 
-package() {
+package_pcoip-client() {
   tar -C $pkgdir/ -xvf $srcdir/pcoip-client/data.tar.gz
 
   rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
@@ -106,4 +106,9 @@ package() {
   chmod +x $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/lib*so*  
   patchelf --set-rpath /usr/lib/x86_64-linux-gnu/pcoip-client \
    $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/librdp-session.so
+}
+
+package_pcoip-client-clipboard() {
+  pkgdesc="Teradici PCOIP client clipboard synchronization plugin"
+  tar -C $pkgdir/ -xvf $srcdir/pcoip-client/data.tar.gz ./usr/lib/x86_64-linux-gnu/pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
 }
