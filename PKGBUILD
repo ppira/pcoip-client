@@ -1,8 +1,8 @@
 # Maintainer: Patrik Pira
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
-pkgver=22.01.0
+pkgver=22.04.0
 _ubuntuver=20.04
-pkgrel=2
+pkgrel=1
 majorboostver=1.71
 boostver=1.71.0
 boostfilesuffix="${boostver}_${boostver}-6ubuntu11_amd64.deb"
