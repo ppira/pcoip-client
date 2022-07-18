@@ -1,6 +1,6 @@
 # Maintainer: Patrik Pira
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
-pkgver=22.04.0
+pkgver=22.07.0
 _ubuntuver=20.04
 pkgrel=1
 majorboostver=1.71
