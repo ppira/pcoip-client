@@ -5,7 +5,7 @@ _ubuntuver=20.04
 pkgrel=1
 majorboostver=1.71
 boostver=1.71.0
-boostfilesuffix="${boostver}_${boostver}-6ubuntu11_amd64.deb"
+boostfilesuffix="${boostver}_${boostver}-6ubuntu6_amd64.deb"
 _protobufver=17
 pkgdesc="Teradici PCOIP client"
 arch=('x86_64')
@@ -22,7 +22,7 @@ source=("https://dl.teradici.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/f
  "http://se.archive.ubuntu.com/ubuntu/pool/main/b/boost${majorboostver}/libboost-thread${boostfilesuffix}"
  "http://se.archive.ubuntu.com/ubuntu/pool/main/b/boost${majorboostver}/libboost-chrono${boostfilesuffix}"
  "http://se.archive.ubuntu.com/ubuntu/pool/main/b/boost${majorboostver}/libboost-filesystem${boostfilesuffix}"
- "http://se.archive.ubuntu.com/ubuntu/pool/main/b/boost${majorboostver}/libboost-regex${boostfilesuffix}"
+ "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${majorboostver}/libboost-regex${boostfilesuffix}"
  "http://se.archive.ubuntu.com/ubuntu/pool/main/b/boost${majorboostver}/libboost-serialization${boostfilesuffix}"
  "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${majorboostver}/libboost-random${boostfilesuffix}"
  "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${majorboostver}/libboost-container${boostfilesuffix}"
