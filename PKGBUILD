@@ -2,7 +2,7 @@
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
 pkgver=22.07.0
 _ubuntuver=20.04
-pkgrel=1
+pkgrel=2
 majorboostver=1.71
 boostver=1.71.0
 boostfilesuffix="${boostver}_${boostver}-6ubuntu6_amd64.deb"
@@ -106,6 +106,9 @@ package_pcoip-client() {
   chmod +x $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/lib*so*  
   patchelf --set-rpath /usr/lib/x86_64-linux-gnu/pcoip-client \
    $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/librdp-session.so
+
+  # remove urlhandler as it collides with the dedicated urlhandler
+  sed -i -e 's!MimeType=x-scheme-handler/pcoip;!!' $pkgdir/usr/share/applications/pcoip-client.desktop
 }
 
 package_pcoip-client-clipboard() {
