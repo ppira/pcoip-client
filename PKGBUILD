@@ -1,8 +1,8 @@
 # Maintainer: Patrik Pira
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
-pkgver=22.07.0
+pkgver=22.09.1
 _ubuntuver=20.04
-pkgrel=2
+pkgrel=3
 majorboostver=1.71
 boostver=1.71.0
 boostfilesuffix="${boostver}_${boostver}-6ubuntu6_amd64.deb"
@@ -10,7 +10,7 @@ _protobufver=17
 pkgdesc="Teradici PCOIP client"
 arch=('x86_64')
 license=('custom:Teradici')
-depends=('pcsclite' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-webengine' 'glfw' 'ffmpeg')
+depends=('pcsclite' 'qt5-networkauth' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-graphicaleffects' 'qt5-webengine' 'glfw' 'ffmpeg')
 makedepends=('fakeroot' 'patchelf')
 install=$pkgname.install
 #options=(!strip)
@@ -62,7 +62,7 @@ prepare() {
 package_pcoip-client() {
   tar -C $pkgdir/ -xvf $srcdir/pcoip-client/data.tar.gz
 
-  rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
+  rm -f $pkgdir/usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
   rm -f $pkgdir/usr/sbin/pcoip-configure-kernel-networking
   rmdir $pkgdir/usr/sbin
 
@@ -95,6 +95,8 @@ package_pcoip-client() {
 
   ln -s . $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/lib
 
+  mv $pkgdir/usr/bin/libFlxCore64.so.2019.04 $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/
+  mv $pkgdir/usr/bin/libFlxComm64.so.2019.04 $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/
   rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libav*
   rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libFlxCo*
   rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libglfw*
@@ -113,5 +115,5 @@ package_pcoip-client() {
 
 package_pcoip-client-clipboard() {
   pkgdesc="Teradici PCOIP client clipboard synchronization plugin"
-  tar -C $pkgdir/ -xvf $srcdir/pcoip-client/data.tar.gz ./usr/lib/x86_64-linux-gnu/pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
+  tar -C $pkgdir/ -xvf $srcdir/pcoip-client/data.tar.gz ./usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
 }
