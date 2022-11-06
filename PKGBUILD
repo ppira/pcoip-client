@@ -2,7 +2,7 @@
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
 pkgver=22.09.1
 _ubuntuver=20.04
-pkgrel=4
+pkgrel=5
 majorboostver=1.71
 boostver=1.71.0
 boostfilesuffix="${boostver}_${boostver}-6ubuntu6_amd64.deb"
@@ -10,7 +10,7 @@ _protobufver=17
 pkgdesc="Teradici PCOIP client"
 arch=('x86_64')
 license=('custom:Teradici')
-depends=('pcsclite' 'qt5-networkauth' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-graphicaleffects' 'qt5-webengine' 'glfw' 'ffmpeg')
+depends=('openssl-1.1' 'pcsclite' 'qt5-networkauth' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-graphicaleffects' 'qt5-webengine' 'glfw' 'ffmpeg')
 makedepends=('fakeroot' 'patchelf')
 install=$pkgname.install
 #options=(!strip)
