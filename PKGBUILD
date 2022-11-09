@@ -14,7 +14,6 @@ depends=('openssl-1.1' 'pcsclite' 'qt5-networkauth' 'qt5-declarative' 'qt5-quick
 makedepends=('fakeroot' 'patchelf')
 install=$pkgname.install
 #options=(!strip)
-#source=("https://downloads.teradici.com/ubuntu/pool/non-free/p/pcoip-client/pcoip-client_${pkgver}-18.04_amd64.deb"
 source=("https://dl.teradici.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/focal/main/p/pc/pcoip-client_${pkgver}-${_ubuntuver}/pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb"
  "http://se.archive.ubuntu.com/ubuntu/pool/main/p/protobuf/libprotobuf17_3.6.1.3-2ubuntu5_amd64.deb"
  "http://se.archive.ubuntu.com/ubuntu/pool/universe/h/hiredis/libhiredis0.14_0.14.1-2_amd64.deb"
@@ -28,17 +27,17 @@ source=("https://dl.teradici.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/f
  "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${majorboostver}/libboost-container${boostfilesuffix}"
 )
 
-sha256sums=('SKIP'
- 'SKIP'
- 'SKIP'
- 'SKIP'
- 'SKIP'
- 'SKIP'
- 'SKIP'
- 'SKIP'
- 'SKIP'
- 'SKIP'
- 'SKIP'
+sha256sums=('490d9b7e0edccadd5797ed21e630bab9f50f3e16a9424fff66215b46d48deff8'
+ 'b78b3d507dd2e70eeef31a703232980401d8f65b10db731b56deb44965482753'
+ 'eb382ba7f1955d111a3b6a70e465d1d8accf995106315b4b9562378c328b411f'
+ '7d4e150855855a2788481f319f4cd9515f526f8fcbf7038a98441d68a8c4c4c1'
+ '707045c56ef0141a77f449eed92eca741660ea1857b00a38db228e6038e0ac92'
+ '4af58d4155189517f447300ee4535cb4db1351cb55802e28cec8c1f13ac108e6'
+ '6793184cc2b8df0da401fdbe78fbf57ac598438177a6af163f99f9f1c14f9eb8'
+ '7160fc29e33b7b191a618ae4b3ae0bc82c30ad5f38d00b82dc6362c9e954e377'
+ '29a885e9b1353b1bb69c6d067909c689af86c02bf3a108db1b9d56e9cc63343c'
+ 'b5e9691cc94d42b5241293f6ad5bc5438201ed88979520e5604b779cb4da14fa'
+ '992c307928860db9ff7c663c61da1f5545a13ffaa2329a8e111b248138235727'
 )
 
 prepare() {
