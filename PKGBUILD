@@ -1,6 +1,6 @@
 # Maintainer: Patrik Pira
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
-pkgver=22.09.1
+pkgver=22.09.4
 _ubuntuver=20.04
 pkgrel=5
 majorboostver=1.71
@@ -27,7 +27,7 @@ source=("https://dl.teradici.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/f
  "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${majorboostver}/libboost-container${boostfilesuffix}"
 )
 
-sha256sums=('490d9b7e0edccadd5797ed21e630bab9f50f3e16a9424fff66215b46d48deff8'
+sha256sums=('d821e46856f3c47108304ffe77a932695478fe6a44ae0866062e865f486b04f4'
  'b78b3d507dd2e70eeef31a703232980401d8f65b10db731b56deb44965482753'
  'eb382ba7f1955d111a3b6a70e465d1d8accf995106315b4b9562378c328b411f'
  '7d4e150855855a2788481f319f4cd9515f526f8fcbf7038a98441d68a8c4c4c1'
