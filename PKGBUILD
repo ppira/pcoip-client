@@ -1,8 +1,8 @@
 # Maintainer: Patrik Pira
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
-pkgver=22.09.4
+pkgver=23.01.1
 _ubuntuver=20.04
-pkgrel=5
+pkgrel=1
 majorboostver=1.71
 boostver=1.71.0
 boostfilesuffix="${boostver}_${boostver}-6ubuntu6_amd64.deb"
@@ -27,7 +27,7 @@ source=("https://dl.teradici.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/f
  "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${majorboostver}/libboost-container${boostfilesuffix}"
 )
 
-sha256sums=('d821e46856f3c47108304ffe77a932695478fe6a44ae0866062e865f486b04f4'
+sha256sums=('9597b67da6a0065b61a942416874f21acf5faa7a6f645ae92316a28a65a84110'
  'b78b3d507dd2e70eeef31a703232980401d8f65b10db731b56deb44965482753'
  'eb382ba7f1955d111a3b6a70e465d1d8accf995106315b4b9562378c328b411f'
  '7d4e150855855a2788481f319f4cd9515f526f8fcbf7038a98441d68a8c4c4c1'
@@ -105,8 +105,8 @@ package_pcoip-client() {
   rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/pkgconfig
 
   chmod +x $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/lib*so*  
-  patchelf --set-rpath /usr/lib/x86_64-linux-gnu/pcoip-client \
-   $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/librdp-session.so
+#  patchelf --set-rpath /usr/lib/x86_64-linux-gnu/pcoip-client \
+#   $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/librdp-session.so
 
   # remove urlhandler as it collides with the dedicated urlhandler
   sed -i -e 's!MimeType=x-scheme-handler/pcoip;!!' $pkgdir/usr/share/applications/pcoip-client.desktop
