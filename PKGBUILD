@@ -1,6 +1,6 @@
 # Maintainer: Patrik Pira
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
-pkgver=23.01.1
+pkgver=24.03.2
 _ubuntuver=20.04
 pkgrel=1
 majorboostver=1.71
@@ -27,7 +27,7 @@ source=("https://dl.teradici.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/f
  "http://se.archive.ubuntu.com/ubuntu/pool/universe/b/boost${majorboostver}/libboost-container${boostfilesuffix}"
 )
 
-sha256sums=('9597b67da6a0065b61a942416874f21acf5faa7a6f645ae92316a28a65a84110'
+sha256sums=('1158ad1f23ed2898a09b3ad3ab38760218dbf3b946c8976a5ad6571fdf3e3017'
  'b78b3d507dd2e70eeef31a703232980401d8f65b10db731b56deb44965482753'
  'eb382ba7f1955d111a3b6a70e465d1d8accf995106315b4b9562378c328b411f'
  '7d4e150855855a2788481f319f4cd9515f526f8fcbf7038a98441d68a8c4c4c1'
@@ -96,13 +96,13 @@ package_pcoip-client() {
 
   mv $pkgdir/usr/bin/libFlxCore64.so.2019.04 $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/
   mv $pkgdir/usr/bin/libFlxComm64.so.2019.04 $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/
-  rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libav*
-  rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libFlxCo*
-  rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libglfw*
-  rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libswscale.so*
-  rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/wayland
-  rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/x11
-  rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/pkgconfig
+# rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libav*
+# rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libFlxCo*
+# rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libglfw*
+# rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libswscale.so*
+# rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/wayland
+# rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/x11
+# rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/pkgconfig
 
   chmod +x $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/lib*so*  
 #  patchelf --set-rpath /usr/lib/x86_64-linux-gnu/pcoip-client \
