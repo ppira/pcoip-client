@@ -24,7 +24,7 @@ sha256sums=('857f2ac896f48ce522b605b2746cb6cea2d0a2cceb3eabf8c880f2a31bddd858'
 )
 
 prepare() {
-  cd $srcdir
+  cd "$srcdir"
   mkdir -p pcoip-client libprotobuf libhiredis
   bsdtar -C pcoip-client -xvf pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb
   bsdtar -C libprotobuf -xvf libprotobuf23_3.12.4-1ubuntu7_amd64.deb
@@ -32,41 +32,41 @@ prepare() {
 }
 
 package_pcoip-client() {
-  tar -C $pkgdir/ -xvf $srcdir/pcoip-client/data.tar.gz
+  tar -C "$pkgdir"/ -xvf "$srcdir"/pcoip-client/data.tar.gz
 
-  rm -f $pkgdir/usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
-  rm -f $pkgdir/usr/sbin/pcoip-configure-kernel-networking
-  rmdir $pkgdir/usr/sbin
+  rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
+  rm -f "$pkgdir"/usr/sbin/pcoip-configure-kernel-networking
+  rmdir "$pkgdir"/usr/sbin
 
   #dependencies
-  tar -C $pkgdir/ -xvf $srcdir/libprotobuf/data.tar.zst \
+  tar -C "$pkgdir"/ -xvf "$srcdir"/libprotobuf/data.tar.zst \
    ./usr/lib/x86_64-linux-gnu/libprotobuf.so.23.0.4
-  tar -C $pkgdir/ -xvf $srcdir/libhiredis/data.tar.zst \
+  tar -C "$pkgdir"/ -xvf "$srcdir"/libhiredis/data.tar.zst \
    ./usr/lib/x86_64-linux-gnu/libhiredis.so.0.14
 
-  mv $pkgdir/usr/lib/x86_64-linux-gnu/lib*.so* \
-   $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/
+  mv "$pkgdir"/usr/lib/x86_64-linux-gnu/lib*.so* \
+   "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/
   ln -s libprotobuf.so.23.0.4 \
-   $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libprotobuf.so.23
+   "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libprotobuf.so.23
 
-  ln -s . $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/lib
+  ln -s . "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/lib
 
-  mv $pkgdir/usr/bin/libFlxCore64.so.2019.04 $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/
-  mv $pkgdir/usr/bin/libFlxComm64.so.2019.04 $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/
-# rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libav*
-# rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libFlxCo*
-# rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libglfw*
-# rm -f $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/libswscale.so*
-# rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/wayland
-# rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/x11
-# rm -rf $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/pkgconfig
+  mv "$pkgdir"/usr/bin/libFlxCore64.so.2019.04 "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/
+  mv "$pkgdir"/usr/bin/libFlxComm64.so.2019.04 "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/
+# rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libav*
+# rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libFlxCo*
+# rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libglfw*
+# rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libswscale.so*
+# rm -rf "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/wayland
+# rm -rf "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/x11
+# rm -rf "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/pkgconfig
 
-  chmod +x $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/lib*so*  
+  chmod +x "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/lib*so*  
 #  patchelf --set-rpath /usr/lib/x86_64-linux-gnu/pcoip-client \
-#   $pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client/librdp-session.so
+#   "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/librdp-session.so
 
   # remove urlhandler as it collides with the dedicated urlhandler
-  sed -i -e 's!MimeType=x-scheme-handler/pcoip;!!' $pkgdir/usr/share/applications/pcoip-client.desktop
+  sed -i -e 's!MimeType=x-scheme-handler/pcoip;!!' "$pkgdir"/usr/share/applications/pcoip-client.desktop
 
   # set capabilities
   setcap "cap_setgid+p" "$pkgdir/usr/libexec/pcoip-client/pcoip-client"
@@ -75,5 +75,5 @@ package_pcoip-client() {
 
 package_pcoip-client-clipboard() {
   pkgdesc="Teradici PCOIP client clipboard synchronization plugin"
-  tar -C $pkgdir/ -xvf $srcdir/pcoip-client/data.tar.gz ./usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
+  tar -C "$pkgdir"/ -xvf "$srcdir"/pcoip-client/data.tar.gz ./usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
 }
