@@ -1,6 +1,6 @@
 # Maintainer: Patrik Pira
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
-pkgver=24.03.2
+pkgver=25.06.3
 _ubuntuver=22.04
 pkgrel=2
 boostver=1.71.0
@@ -18,7 +18,7 @@ source=("https://dl.teradici.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/j
  "http://se.archive.ubuntu.com/ubuntu/pool/universe/h/hiredis/libhiredis0.14_0.14.1-2_amd64.deb"
 )
 
-sha256sums=('be22f2a1b952245263fe0cd487cf8d32ae947f6eefd5c99cb0a1dc50d2e0e2c9'
+sha256sums=('857f2ac896f48ce522b605b2746cb6cea2d0a2cceb3eabf8c880f2a31bddd858'
  '8c9942e9130ab7c343438b1b81603bdd86509d7e2a9cc877ae35a998dbf5e0a8'
  'eb382ba7f1955d111a3b6a70e465d1d8accf995106315b4b9562378c328b411f'
 )
@@ -67,6 +67,10 @@ package_pcoip-client() {
 
   # remove urlhandler as it collides with the dedicated urlhandler
   sed -i -e 's!MimeType=x-scheme-handler/pcoip;!!' $pkgdir/usr/share/applications/pcoip-client.desktop
+
+  # set capabilities
+  setcap "cap_setgid+p" "$pkgdir/usr/libexec/pcoip-client/pcoip-client"
+  setcap "cap_setgid+i" "$pkgdir/usr/libexec/pcoip-client/usb-helper"
 }
 
 package_pcoip-client-clipboard() {
