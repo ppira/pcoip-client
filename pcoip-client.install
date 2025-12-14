@@ -1,4 +1,8 @@
 post_install() {
-    setcap "cap_setgid+p" "/usr/bin/pcoip-client"
+    setcap "cap_setgid+p" "/usr/libexec/pcoip-client/pcoip-client"
     setcap "cap_setgid+i" "/usr/libexec/pcoip-client/usb-helper"
+}
+
+post_upgrade() {
+    post_install
 }

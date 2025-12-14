@@ -3,15 +3,12 @@ pkgname=('pcoip-client' 'pcoip-client-clipboard')
 pkgver=25.10.2
 _ubuntuver=22.04
 pkgrel=2
-boostver=1.71.0
-boostfilesuffix="${boostver}_${boostver}-6ubuntu6_amd64.deb"
-_protobufver=23
 pkgdesc="Teradici PCOIP client"
 arch=('x86_64')
 license=('custom:Teradici')
 depends=('openssl-1.1' 'pcsclite' 'qt5-networkauth' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-graphicaleffects' 'qt5-webengine' 'glfw' 'ffmpeg' 'libcap')
 makedepends=('fakeroot' 'patchelf')
-install=$pkgname.install
+install=pcoip-client.install
 #options=(!strip)
 source=("https://dl.anyware.hp.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/jammy/main/p/pc/pcoip-client_${pkgver}-${_ubuntuver}/pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb"
  "http://se.archive.ubuntu.com/ubuntu/pool/main/p/protobuf/libprotobuf23_3.12.4-1ubuntu7_amd64.deb"
@@ -51,8 +48,8 @@ package_pcoip-client() {
 
   ln -s . "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/lib
 
-  # mv "$pkgdir"/usr/bin/libFlxCore64.so.2019.04 "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/
-  # mv "$pkgdir"/usr/bin/libFlxComm64.so.2019.04 "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/
+# mv "$pkgdir"/usr/bin/libFlxCore64.so.2019.04 "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/
+# mv "$pkgdir"/usr/bin/libFlxComm64.so.2019.04 "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/
 # rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libav*
 # rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libFlxCo*
 # rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libglfw*
@@ -61,9 +58,9 @@ package_pcoip-client() {
 # rm -rf "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/x11
 # rm -rf "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/pkgconfig
 
-  chmod +x "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/lib*so*  
+  chmod +x "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/lib*so*
 #  patchelf --set-rpath /usr/lib/x86_64-linux-gnu/pcoip-client \
-#   "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/librdp-session.so
+#  "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/librdp-session.so
 
   # remove urlhandler as it collides with the dedicated urlhandler
   sed -i -e 's!MimeType=x-scheme-handler/pcoip;!!' "$pkgdir"/usr/share/applications/pcoip-client.desktop
