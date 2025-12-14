@@ -1,6 +1,6 @@
 # Maintainer: Patrik Pira
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
-pkgver=25.06.3
+pkgver=25.10.2
 _ubuntuver=22.04
 pkgrel=2
 boostver=1.71.0
@@ -9,16 +9,16 @@ _protobufver=23
 pkgdesc="Teradici PCOIP client"
 arch=('x86_64')
 license=('custom:Teradici')
-depends=('openssl-1.1' 'pcsclite' 'qt5-networkauth' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-graphicaleffects' 'qt5-webengine' 'glfw' 'ffmpeg')
+depends=('openssl-1.1' 'pcsclite' 'qt5-networkauth' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-graphicaleffects' 'qt5-webengine' 'glfw' 'ffmpeg' 'libcap')
 makedepends=('fakeroot' 'patchelf')
 install=$pkgname.install
 #options=(!strip)
-source=("https://dl.teradici.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/jammy/main/p/pc/pcoip-client_${pkgver}-${_ubuntuver}/pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb"
+source=("https://dl.anyware.hp.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/jammy/main/p/pc/pcoip-client_${pkgver}-${_ubuntuver}/pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb"
  "http://se.archive.ubuntu.com/ubuntu/pool/main/p/protobuf/libprotobuf23_3.12.4-1ubuntu7_amd64.deb"
  "http://se.archive.ubuntu.com/ubuntu/pool/universe/h/hiredis/libhiredis0.14_0.14.1-2_amd64.deb"
 )
 
-sha256sums=('857f2ac896f48ce522b605b2746cb6cea2d0a2cceb3eabf8c880f2a31bddd858'
+sha256sums=('9138b29fe4e8352b0a472dd8b33ed9889b420fed4711aec0e9759ff74311d6e5'
  '8c9942e9130ab7c343438b1b81603bdd86509d7e2a9cc877ae35a998dbf5e0a8'
  'eb382ba7f1955d111a3b6a70e465d1d8accf995106315b4b9562378c328b411f'
 )
