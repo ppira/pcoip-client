@@ -21,10 +21,30 @@ makepkg -si
 
 ## Notes
 
-- The PKGBUILD fetches the upstream client `.deb` plus a couple of runtime libraries used for compatibility on Arch.
-- You may need `openssl-1.1` from the AUR (depending on your distro/repo set).
-- Capabilities are applied on install via `pcoip-client.install` (used for USB redirection helpers).
+- The PKGBUILD fetches the upstream client `.deb` plus the Ubuntu `libprotobuf23` it expects for ABI compatibility.
+- Main package depends on system Qt, X11/XCB, audio, and VA-API; optional VA-API drivers are surfaced via `optdepends`.
+- A wrapper forces `QT_QPA_PLATFORM=xcb` and the bundled Wayland Qt platform plugins are removed (upstream Wayland build is broken against Arch Qt).
+- The clipboard plugin now pulls in `graphicsmagick` and is patched to link against the Arch SONAME.
+- Capabilities for the client and USB helper are baked into the package during build; if they get lost, re-apply them manually (see troubleshooting).
 - The upstream `.desktop` file is patched to avoid registering the `pcoip://` URL handler (to prevent collisions with dedicated URL-handler packages).
+
+## libva Driver
+
+Intel
+```bash
+intel-media-driver
+libva-intel-driver
+```
+
+AMD
+```bash
+libva-mesa-driver
+```
+
+NVIDIA
+```bash
+libva-nvidia-driver
+```
 
 ## Troubleshooting
 
