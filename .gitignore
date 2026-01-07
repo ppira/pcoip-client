@@ -1,4 +1,8 @@
+*.log
+*.log.*
+*.pkg.tar.*
 *.tar.xz
+*.tar.gz
 *.tar.zst
 *.deb
 pkg

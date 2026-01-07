@@ -1,69 +1,111 @@
 # Maintainer: Patrik Pira
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
-pkgver=25.06.3
+pkgver=25.10.2
 _ubuntuver=22.04
 pkgrel=2
-boostver=1.71.0
-boostfilesuffix="${boostver}_${boostver}-6ubuntu6_amd64.deb"
-_protobufver=23
-pkgdesc="Teradici PCOIP client"
+url='https://anyware.hp.com/'
 arch=('x86_64')
 license=('custom:Teradici')
-depends=('openssl-1.1' 'pcsclite' 'qt5-networkauth' 'qt5-declarative' 'qt5-quickcontrols' 'qt5-quickcontrols2' 'qt5-graphicaleffects' 'qt5-webengine' 'glfw' 'ffmpeg')
+depends=(
+  'alsa-lib>=1.0.17'
+  'dbus>=1.9.14'
+  'expat>=2.1'
+  'fontconfig>=2.12.6'
+  'freetype2>=2.9.1'
+  'glib2>=2.26.0'
+  'krb5>=1.17'
+  'libcap>=2.10'
+  'libdrm>=2.4.38'
+  'libglvnd'
+  'libpng>=1.6.2' # Undeclared in .deb file
+  'libpulse>=0.99.1'
+  'libva>=2.1.0'
+  'libx11>=1.2.99.901'
+  'libxcb>=1.7.5'
+  'libxext'
+  'libxi>=1.2.99.4'
+  'libxkbcommon-x11>=0.5.0'
+  'mesa>=21.1.0'
+  'nspr>=4.9'
+  'nss>=3.30'
+  'pcsclite>=1.3.3'
+  'systemd>=183'
+  'xcb-util>=0.4.0'
+  'xcb-util-image>=0.2.1'
+  'xcb-util-keysyms>=0.4.0'
+  'xcb-util-renderutil'
+  'xcb-util-wm>=0.4.1'
+  'zlib>=1.4.0'
+  # gcc-libs provides libatomic1, libc6, libgcc-s1, libstdc++6 (base)
+)
+optdepends=(
+  'intel-media-driver: VA-API for newer Intel GPUs'
+  'libva-intel-driver: VA-API for older Intel GPUs'
+  'libva-mesa-driver: VA-API for Intel/AMD GPUs via Mesa'
+  'libva-nvidia-driver: VA-API for NVIDIA GPUs (proprietary driver required)'
+)
 makedepends=('fakeroot' 'patchelf')
-install=$pkgname.install
-#options=(!strip)
-source=("https://dl.teradici.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/jammy/main/p/pc/pcoip-client_${pkgver}-${_ubuntuver}/pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb"
- "http://se.archive.ubuntu.com/ubuntu/pool/main/p/protobuf/libprotobuf23_3.12.4-1ubuntu7_amd64.deb"
- "http://se.archive.ubuntu.com/ubuntu/pool/universe/h/hiredis/libhiredis0.14_0.14.1-2_amd64.deb"
+source=(
+  "https://dl.anyware.hp.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/jammy/main/p/pc/pcoip-client_${pkgver}-${_ubuntuver}/pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb"
+  "http://se.archive.ubuntu.com/ubuntu/pool/main/p/protobuf/libprotobuf23_3.12.4-1ubuntu7_amd64.deb"
 )
 
-sha256sums=('857f2ac896f48ce522b605b2746cb6cea2d0a2cceb3eabf8c880f2a31bddd858'
- '8c9942e9130ab7c343438b1b81603bdd86509d7e2a9cc877ae35a998dbf5e0a8'
- 'eb382ba7f1955d111a3b6a70e465d1d8accf995106315b4b9562378c328b411f'
+sha256sums=(
+  '9138b29fe4e8352b0a472dd8b33ed9889b420fed4711aec0e9759ff74311d6e5'
+  '8c9942e9130ab7c343438b1b81603bdd86509d7e2a9cc877ae35a998dbf5e0a8'
 )
 
 prepare() {
   cd "$srcdir"
-  mkdir -p pcoip-client libprotobuf libhiredis
-  bsdtar -C pcoip-client -xvf pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb
-  bsdtar -C libprotobuf -xvf libprotobuf23_3.12.4-1ubuntu7_amd64.deb
-  bsdtar -C libhiredis -xvf libhiredis0.14_0.14.1-2_amd64.deb
+  mkdir -p pcoip-client libprotobuf
+  # Unpack upstream client and the Ubuntu runtime dep we vendor.
+  bsdtar -C pcoip-client -xf pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb
+  bsdtar -C libprotobuf -xf libprotobuf23_3.12.4-1ubuntu7_amd64.deb
 }
 
 package_pcoip-client() {
-  tar -C "$pkgdir"/ -xvf "$srcdir"/pcoip-client/data.tar.gz
+  pkgdesc="Teradici PCOIP client"
+  local vendor_root="$pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client"
 
-  rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
-  rm -f "$pkgdir"/usr/sbin/pcoip-configure-kernel-networking
-  rmdir "$pkgdir"/usr/sbin
+  tar -C "$pkgdir"/ -xf "$srcdir"/pcoip-client/data.tar.gz
 
-  #dependencies
-  tar -C "$pkgdir"/ -xvf "$srcdir"/libprotobuf/data.tar.zst \
-   ./usr/lib/x86_64-linux-gnu/libprotobuf.so.23.0.4
-  tar -C "$pkgdir"/ -xvf "$srcdir"/libhiredis/data.tar.zst \
-   ./usr/lib/x86_64-linux-gnu/libhiredis.so.0.14
+  # Upstream ships /usr/sbin but Arch uses a filesystem-provided /usr/sbin -> /usr/bin symlink.
+  install -d "$pkgdir/usr/bin"
+  mv "$pkgdir"/usr/sbin/pcoip-configure-kernel-networking "$pkgdir"/usr/bin/
+  rm -rf "$pkgdir"/usr/sbin
 
-  mv "$pkgdir"/usr/lib/x86_64-linux-gnu/lib*.so* \
-   "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/
-  ln -s libprotobuf.so.23.0.4 \
-   "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libprotobuf.so.23
+  # Force X11/XCB because we drop the broken Wayland Qt plugin.
+  rm "$pkgdir"/usr/bin/pcoip-client
+  cat <<'EOF' > "$pkgdir"/usr/bin/pcoip-client
+#!/bin/sh
+export QT_QPA_PLATFORM="${QT_QPA_PLATFORM:-xcb}"
+exec /usr/libexec/pcoip-client/pcoip-client "$@"
+EOF
+  chmod +x "$pkgdir/usr/bin/pcoip-client"
 
-  ln -s . "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/lib
+  # Remove unused upstream directories not needed on Arch.
+  rm -rf \
+    "$pkgdir"/usr/lib/x86_64-linux-gnu/org.hp.pcoip-client \
+    "$pkgdir"/var \
+    "$pkgdir"/usr/share/icons/hicolor/128x128 \
+    "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/pkgconfig \
+    "$pkgdir"/usr/share/man
 
-  mv "$pkgdir"/usr/bin/libFlxCore64.so.2019.04 "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/
-  mv "$pkgdir"/usr/bin/libFlxComm64.so.2019.04 "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/
-# rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libav*
-# rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libFlxCo*
-# rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libglfw*
-# rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/libswscale.so*
-# rm -rf "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/wayland
-# rm -rf "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/x11
-# rm -rf "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/pkgconfig
+  # Drop Wayland Qt platform plugins that fail with system libQt6WaylandClient.
+  rm -f "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/plugins/platforms/libqwayland-*.so
 
-  chmod +x "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/lib*so*  
-#  patchelf --set-rpath /usr/lib/x86_64-linux-gnu/pcoip-client \
-#   "$pkgdir"/usr/lib/x86_64-linux-gnu/pcoip-client/librdp-session.so
+  # Bundle Ubuntu protobuf for ABI compatibility.
+  tar -C "$pkgdir"/ -xf "$srcdir"/libprotobuf/data.tar.zst \
+    ./usr/lib/x86_64-linux-gnu/libprotobuf.so.23.0.4
+
+  # Keep vendor libs contained and provide the expected SONAME symlink.
+  mv "$pkgdir"/usr/lib/x86_64-linux-gnu/lib*.so* "$vendor_root"/
+  ln -s libprotobuf.so.23.0.4 "$vendor_root"/libprotobuf.so.23
+
+  # Qt looks for a sibling lib/ directory.
+  ln -s . "$vendor_root"/lib
+
+  chmod +x "$vendor_root"/lib*so*
 
   # remove urlhandler as it collides with the dedicated urlhandler
   sed -i -e 's!MimeType=x-scheme-handler/pcoip;!!' "$pkgdir"/usr/share/applications/pcoip-client.desktop
@@ -75,5 +117,12 @@ package_pcoip-client() {
 
 package_pcoip-client-clipboard() {
   pkgdesc="Teradici PCOIP client clipboard synchronization plugin"
-  tar -C "$pkgdir"/ -xvf "$srcdir"/pcoip-client/data.tar.gz ./usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
+  depends=('pcoip-client' 'graphicsmagick>=1.3.26')
+  install=
+
+  tar -C "$pkgdir"/ -xf "$srcdir"/pcoip-client/data.tar.gz \
+    ./usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
+  chmod +x "$pkgdir"/usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
+  patchelf --replace-needed libGraphicsMagick++-Q16.so.12 libGraphicsMagick++.so.12 \
+    "$pkgdir"/usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
 }
