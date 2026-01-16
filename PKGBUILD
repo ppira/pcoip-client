@@ -2,7 +2,7 @@
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
 pkgver=25.10.2
 _ubuntuver=22.04
-pkgrel=2
+pkgrel=3
 url='https://anyware.hp.com/'
 arch=('x86_64')
 license=('custom:Teradici')
@@ -35,7 +35,7 @@ depends=(
   'xcb-util-keysyms>=0.4.0'
   'xcb-util-renderutil'
   'xcb-util-wm>=0.4.1'
-  'zlib>=1.4.0'
+  'zlib'
   # gcc-libs provides libatomic1, libc6, libgcc-s1, libstdc++6 (base)
 )
 optdepends=(
