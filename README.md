@@ -54,3 +54,5 @@ libva-nvidia-driver
     - `sudo setcap cap_setgid+i /usr/libexec/pcoip-client/usb-helper`
 - **Missing shared libraries**
   - Check: `ldd /usr/bin/pcoip-client | rg 'not found'`
+- **ERROR: Cannot find the fakeroot binary.**
+  - Check you have the base-devel package installed: `sudo pacman -S base-devel`
