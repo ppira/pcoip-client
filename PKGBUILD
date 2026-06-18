@@ -13,6 +13,7 @@ depends=(
   'fontconfig>=2.12.6'
   'freetype2>=2.9.1'
   'glib2>=2.26.0'
+  'gtk3'
   'krb5>=1.17'
   'libcap>=2.10'
   'libdrm>=2.4.38'
@@ -31,6 +32,7 @@ depends=(
   'pcsclite>=1.3.3'
   'systemd>=183'
   'xcb-util>=0.4.0'
+  'xcb-util-cursor>=0.1.4'
   'xcb-util-image>=0.2.1'
   'xcb-util-keysyms>=0.4.0'
   'xcb-util-renderutil'
@@ -65,7 +67,7 @@ prepare() {
 }
 
 package_pcoip-client() {
-  pkgdesc="Teradici PCOIP client"
+  pkgdesc="HP Anyware PCoIP client"
   local vendor_root="$pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client"
 
   tar -C "$pkgdir"/ -xf "$srcdir"/pcoip-client/data.tar.gz
@@ -117,9 +119,8 @@ EOF
 }
 
 package_pcoip-client-clipboard() {
-  pkgdesc="Teradici PCOIP client clipboard synchronization plugin"
+  pkgdesc="HP Anyware PCoIP client clipboard synchronization plugin"
   depends=('pcoip-client' 'graphicsmagick>=1.3.26')
-  install=
 
   tar -C "$pkgdir"/ -xf "$srcdir"/pcoip-client/data.tar.gz \
     ./usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
