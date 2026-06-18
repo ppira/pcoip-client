@@ -30,21 +30,28 @@ makepkg -si
 
 ## libva Driver
 
-Intel
-```bash
-intel-media-driver
-libva-intel-driver
+The client uses VA-API for hardware-accelerated video decoding during remote sessions.
+Without a driver, you'll see this warning in logs — decoding falls back to software
+(works, but uses more CPU):
+
+```
+[AVHWDeviceContext] Failed to initialise VAAPI connection: -1 (unknown libva error).
 ```
 
-AMD
+Install the driver matching your GPU. To check which GPU you have:
+
 ```bash
-libva-mesa-driver
+lspci | grep -iE "vga|3d|display"
 ```
 
-NVIDIA
-```bash
-libva-nvidia-driver
-```
+| GPU | Driver | Install |
+|-----|--------|---------|
+| Intel (Skylake 2015 or newer) | `intel-media-driver` | `sudo pacman -S intel-media-driver` |
+| Intel (Broadwell 2014 or older) | `libva-intel-driver` | `sudo pacman -S libva-intel-driver` |
+| AMD / Intel via Mesa | `libva-mesa-driver` | `sudo pacman -S libva-mesa-driver` |
+| NVIDIA (proprietary driver) | `libva-nvidia-driver` | `sudo pacman -S libva-nvidia-driver` |
+
+These are listed as `optdepends` and are not required — the client runs fine without them.
 
 ## Troubleshooting
 
