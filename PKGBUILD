@@ -45,6 +45,7 @@ optdepends=(
   'libva-nvidia-driver: VA-API for NVIDIA GPUs (proprietary driver required)'
 )
 makedepends=('fakeroot' 'patchelf')
+options=('!strip')
 source=(
   "https://dl.anyware.hp.com/pcoip-client/deb/ubuntu/pool/main/p/pcoip-client/pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb"
   "http://archive.ubuntu.com/ubuntu/pool/main/p/protobuf/libprotobuf32t64_3.21.12-8.2ubuntu0.3_amd64.deb"
