@@ -1,8 +1,8 @@
 # Maintainer: Patrik Pira
 pkgname=('pcoip-client' 'pcoip-client-clipboard')
-pkgver=25.10.2
-_ubuntuver=22.04
-pkgrel=2
+pkgver=26.05.2
+_ubuntuver=24.04
+pkgrel=1
 url='https://anyware.hp.com/'
 arch=('x86_64')
 license=('custom:Teradici')
@@ -13,6 +13,7 @@ depends=(
   'fontconfig>=2.12.6'
   'freetype2>=2.9.1'
   'glib2>=2.26.0'
+  'gtk3'
   'krb5>=1.17'
   'libcap>=2.10'
   'libdrm>=2.4.38'
@@ -31,11 +32,12 @@ depends=(
   'pcsclite>=1.3.3'
   'systemd>=183'
   'xcb-util>=0.4.0'
+  'xcb-util-cursor>=0.1.4'
   'xcb-util-image>=0.2.1'
   'xcb-util-keysyms>=0.4.0'
   'xcb-util-renderutil'
   'xcb-util-wm>=0.4.1'
-  'zlib>=1.4.0'
+  'zlib'
   # gcc-libs provides libatomic1, libc6, libgcc-s1, libstdc++6 (base)
 )
 optdepends=(
@@ -45,14 +47,15 @@ optdepends=(
   'libva-nvidia-driver: VA-API for NVIDIA GPUs (proprietary driver required)'
 )
 makedepends=('fakeroot' 'patchelf')
+options=('!strip')
 source=(
-  "https://dl.anyware.hp.com/DeAdBCiUYInHcSTy/pcoip-client/deb/ubuntu/pool/jammy/main/p/pc/pcoip-client_${pkgver}-${_ubuntuver}/pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb"
-  "http://se.archive.ubuntu.com/ubuntu/pool/main/p/protobuf/libprotobuf23_3.12.4-1ubuntu7_amd64.deb"
+  "https://dl.anyware.hp.com/pcoip-client/deb/ubuntu/pool/main/p/pcoip-client/pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb"
+  "http://archive.ubuntu.com/ubuntu/pool/main/p/protobuf/libprotobuf32t64_3.21.12-8.2ubuntu0.3_amd64.deb"
 )
 
 sha256sums=(
-  '9138b29fe4e8352b0a472dd8b33ed9889b420fed4711aec0e9759ff74311d6e5'
-  '8c9942e9130ab7c343438b1b81603bdd86509d7e2a9cc877ae35a998dbf5e0a8'
+  'e62de695a928318a57af0ab7374bf7ad788de236032046a1bb7c27b646abaae9'
+  '0b0dd45060288fbe5505b4b3c86e6222d6f4214574f653b2a7d0bbe72d5c6d87'
 )
 
 prepare() {
@@ -60,11 +63,11 @@ prepare() {
   mkdir -p pcoip-client libprotobuf
   # Unpack upstream client and the Ubuntu runtime dep we vendor.
   bsdtar -C pcoip-client -xf pcoip-client_${pkgver}-${_ubuntuver}_amd64.deb
-  bsdtar -C libprotobuf -xf libprotobuf23_3.12.4-1ubuntu7_amd64.deb
+  bsdtar -C libprotobuf -xf libprotobuf32t64_3.21.12-8.2ubuntu0.3_amd64.deb
 }
 
 package_pcoip-client() {
-  pkgdesc="Teradici PCOIP client"
+  pkgdesc="HP Anyware PCoIP client"
   local vendor_root="$pkgdir/usr/lib/x86_64-linux-gnu/pcoip-client"
 
   tar -C "$pkgdir"/ -xf "$srcdir"/pcoip-client/data.tar.gz
@@ -96,11 +99,11 @@ EOF
 
   # Bundle Ubuntu protobuf for ABI compatibility.
   tar -C "$pkgdir"/ -xf "$srcdir"/libprotobuf/data.tar.zst \
-    ./usr/lib/x86_64-linux-gnu/libprotobuf.so.23.0.4
+    ./usr/lib/x86_64-linux-gnu/libprotobuf.so.32.0.12
 
   # Keep vendor libs contained and provide the expected SONAME symlink.
   mv "$pkgdir"/usr/lib/x86_64-linux-gnu/lib*.so* "$vendor_root"/
-  ln -s libprotobuf.so.23.0.4 "$vendor_root"/libprotobuf.so.23
+  ln -s libprotobuf.so.32.0.12 "$vendor_root"/libprotobuf.so.32
 
   # Qt looks for a sibling lib/ directory.
   ln -s . "$vendor_root"/lib
@@ -116,9 +119,8 @@ EOF
 }
 
 package_pcoip-client-clipboard() {
-  pkgdesc="Teradici PCOIP client clipboard synchronization plugin"
+  pkgdesc="HP Anyware PCoIP client clipboard synchronization plugin"
   depends=('pcoip-client' 'graphicsmagick>=1.3.26')
-  install=
 
   tar -C "$pkgdir"/ -xf "$srcdir"/pcoip-client/data.tar.gz \
     ./usr/lib/x86_64-linux-gnu/org.hp.pcoip-client/vchan_plugins/libvchan-plugin-clipboard.so
